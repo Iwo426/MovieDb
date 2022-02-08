@@ -66,6 +66,14 @@ object RepositoryModule {
     ): CreateSessionIdRepository {
         return CreateSessionIdRepository(mobiMovieApi)
     }
+
+    @Singleton
+    @Provides
+    fun provideAddToFavoriteRepository(
+        mobiMovieApi: MobiMovieApi,
+    ): AddToFavoriteRepository {
+        return AddToFavoriteRepository(mobiMovieApi)
+    }
 }
 
 

@@ -7,4 +7,6 @@
     <string name="kullanici_ad">Kullanıcı Adı</string>
     <string name="sifre">Şifre</string>
     <string name="emptyStringWarning">Kullanıcı Adı ve Şifre Bölümleri Boş Bırakılamaz</string>
+    <string name="success">İşlem Başarılı</string>
+    <string name="fail">işlem Başarısız Lütfen Daha Sonra Tekrar Deneyin</string>
 </resources>

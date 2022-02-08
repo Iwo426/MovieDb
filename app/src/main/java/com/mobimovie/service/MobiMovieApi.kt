@@ -1,6 +1,7 @@
 package com.mobimovie.service
 
-import com.google.gson.JsonObject
+import com.mobimovie.request.AddToFavoriteRequest
+import com.mobimovie.request.AddToWatchListRequest
 import com.mobimovie.request.LoginRequest
 import com.mobimovie.request.SessionRequest
 import com.mobimovie.response.*
@@ -40,5 +41,21 @@ interface MobiMovieApi {
         @Query("api_key") apiKey: String?,
         @Query("session_id") id: String?
     ): AccountDetailResponse
+
+    @POST("account/{account_id}/favorite")
+    suspend fun addToFavorite(
+        @Path("account_id") id : Int?,
+        @Query("api_key") apiKey: String?,
+        @Query("session_id") sessionId: String?,
+        @Body request: AddToFavoriteRequest
+    ): CommonResponse
+
+    @POST("account/{account_id}/watchlist")
+    suspend fun addToWatchlist(
+        @Path("account_id") id : Int?,
+        @Query("api_key") apiKey: String?,
+        @Query("session_id") sessionId: String?,
+        @Body request: AddToWatchListRequest
+    ): CommonResponse
 
 }
