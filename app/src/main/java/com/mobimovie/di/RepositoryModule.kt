@@ -2,10 +2,13 @@ package com.mobimovie.di
 
 import com.mobimovie.repository.*
 import com.mobimovie.service.MobiMovieApi
+import com.mobimovie.viewmodel.GetFavoriteListViewModel
+import com.mobimovie.viewmodel.GetWatchListViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
 @Module
@@ -73,6 +76,24 @@ object RepositoryModule {
         mobiMovieApi: MobiMovieApi,
     ): AddToFavoriteRepository {
         return AddToFavoriteRepository(mobiMovieApi)
+    }
+
+    @ExperimentalCoroutinesApi
+    @Singleton
+    @Provides
+    fun provideGetWatchListViewModel(
+        mobiMovieApi: MobiMovieApi,
+    ): GetWatchListViewModel {
+        return GetWatchListViewModel(mobiMovieApi)
+    }
+
+    @ExperimentalCoroutinesApi
+    @Singleton
+    @Provides
+    fun provideGetFavoriteListViewModel(
+        mobiMovieApi: MobiMovieApi,
+    ): GetFavoriteListViewModel {
+        return GetFavoriteListViewModel(mobiMovieApi)
     }
 }
 

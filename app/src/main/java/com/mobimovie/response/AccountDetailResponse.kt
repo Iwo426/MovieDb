@@ -1,5 +1,7 @@
 package com.mobimovie.response
 
+import com.mobimovie.model.Avatar
+
 data class AccountDetailResponse(
     val avatar: Avatar,
     val id: Int,

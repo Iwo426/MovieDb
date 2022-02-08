@@ -58,4 +58,26 @@ interface MobiMovieApi {
         @Body request: AddToWatchListRequest
     ): CommonResponse
 
+    @GET("account/{account_id}/watchlist/movies")
+    suspend fun getWatchlist(
+        @Path("account_id") id : Int?,
+        @Query("api_key") apiKey: String?,
+        @Query("session_id") sessionId: String?,
+        @Query("page") page: Int?
+    ): NowPlayingResponse
+
+    @GET("account/{account_id}/favorite/movies")
+    suspend fun getFavoritelist(
+        @Path("account_id") id : Int?,
+        @Query("api_key") apiKey: String?,
+        @Query("session_id") sessionId: String?,
+        @Query("page") page: Int?
+    ): NowPlayingResponse
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("api_key") apiKey: String?,
+        @Query("query") query: String?,
+        @Query("page") page: Int?
+    ): NowPlayingResponse
 }

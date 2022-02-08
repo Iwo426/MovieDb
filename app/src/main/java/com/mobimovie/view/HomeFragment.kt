@@ -38,7 +38,7 @@ class HomeFragment : Fragment(), UpcomingListAdapter.ItemInterface {
     private val binding get() = _binding
     private val viewModelNowPlaying: NowPlayingViewModel by viewModels()
     private val viewModelUpComing: UpComingViewModel by viewModels()
-    private val viewModelRequestToken : RequestTokenViewModel by viewModels()
+    private val viewModelRequestToken: RequestTokenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

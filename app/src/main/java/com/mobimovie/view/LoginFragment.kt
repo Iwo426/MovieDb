@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import com.google.gson.JsonObject
 import com.mobimovie.R
 import com.mobimovie.databinding.FragmentLoginBinding
 import com.mobimovie.request.LoginRequest
@@ -19,7 +18,6 @@ import com.mobimovie.response.AccountDetailResponse
 import com.mobimovie.response.CreateSessionIdResponse
 import com.mobimovie.response.RequestTokenResponse
 import com.mobimovie.utils.DataState
-import com.mobimovie.utils.MobiMovieConstants
 import com.mobimovie.utils.MobiMovieConstants.API_KEY
 import com.mobimovie.utils.isEmpty
 import com.mobimovie.utils.visible

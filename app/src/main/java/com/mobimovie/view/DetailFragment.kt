@@ -59,11 +59,11 @@ class DetailFragment : Fragment() {
         viewModelDetail = ViewModelProvider(this)[MovieDetailViewModel::class.java]
         initUiData()
         btnAddFavorite.setOnClickListener {
-            addToFavorite(AddToFavoriteRequest(true,movieId,"movie"))
+            addToFavorite(AddToFavoriteRequest(true, movieId, "movie"))
         }
 
         btnAddWatchList.setOnClickListener {
-            addToWatchlist(AddToWatchListRequest(true,movieId,"movie"))
+            addToWatchlist(AddToWatchListRequest(true, movieId, "movie"))
         }
         binding.callback
     }
@@ -90,8 +90,8 @@ class DetailFragment : Fragment() {
         })
     }
 
-    private fun addToFavorite(request: AddToFavoriteRequest){
-        viewModelAddToFavorite.addToFavorite(getUserId(),getSession(),request)
+    private fun addToFavorite(request: AddToFavoriteRequest) {
+        viewModelAddToFavorite.addToFavorite(getUserId(), getSession(), request)
         viewModelAddToFavorite.data.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Success<CommonResponse> -> {
@@ -109,8 +109,8 @@ class DetailFragment : Fragment() {
 
     }
 
-    private fun addToWatchlist(request: AddToWatchListRequest){
-        viewModelAddWatchList.addToWatchlist(getUserId(),getSession(),request)
+    private fun addToWatchlist(request: AddToWatchListRequest) {
+        viewModelAddWatchList.addToWatchlist(getUserId(), getSession(), request)
         viewModelAddWatchList.data.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Success<CommonResponse> -> {
@@ -134,7 +134,7 @@ class DetailFragment : Fragment() {
         accountModel.data.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Success<AccountDetailResponse> -> {
-                     userId = it.data.id
+                    userId = it.data.id
                 }
                 else -> {}
             }
@@ -143,7 +143,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun getSession(): String {
-       lateinit var sessionId :String
+        lateinit var sessionId: String
         val sessionViewModel: SessionViewModel by activityViewModels()
         sessionViewModel.data.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -160,6 +160,7 @@ class DetailFragment : Fragment() {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.imdb.com/title/$id"))
         startActivity(browserIntent)
     }
+
     private fun displayProgressBar(isDisplayed: Boolean) {
         progressDetail?.visible(isDisplayed)
     }

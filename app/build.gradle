@@ -86,4 +86,7 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.4.0")
 
+    // Android Jetpack Paging 3.0
+    implementation "androidx.paging:paging-runtime:3.0.0-alpha06"
+
 }

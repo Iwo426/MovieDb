@@ -1,4 +1,4 @@
-package com.mobimovie.response
+package com.mobimovie.model
 
 data class Avatar(
     val gravatar: Gravatar

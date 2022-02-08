@@ -9,4 +9,7 @@
     <string name="emptyStringWarning">Kullanıcı Adı ve Şifre Bölümleri Boş Bırakılamaz</string>
     <string name="success">İşlem Başarılı</string>
     <string name="fail">işlem Başarısız Lütfen Daha Sonra Tekrar Deneyin</string>
+    <string name="anasayfa">Anasayfa</string>
+    <string name="watch_list">Watch List</string>
+    <string name="favorites">Favorites</string>
 </resources>
