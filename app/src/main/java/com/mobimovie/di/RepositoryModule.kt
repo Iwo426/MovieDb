@@ -1,8 +1,6 @@
 package com.mobimovie.di
 
-import com.mobimovie.repository.MovieDetailRepository
-import com.mobimovie.repository.NowPlayingRepository
-import com.mobimovie.repository.UpComingRepository
+import com.mobimovie.repository.*
 import com.mobimovie.service.MobiMovieApi
 import dagger.Module
 import dagger.Provides
@@ -18,7 +16,7 @@ object RepositoryModule {
     fun provideUpComingRepository(
         mobiMovieApi: MobiMovieApi,
     ): UpComingRepository {
-        return UpComingRepository( mobiMovieApi)
+        return UpComingRepository(mobiMovieApi)
     }
 
     @Singleton
@@ -26,7 +24,7 @@ object RepositoryModule {
     fun provideNowPlayingRepository(
         mobiMovieApi: MobiMovieApi,
     ): NowPlayingRepository {
-        return NowPlayingRepository( mobiMovieApi)
+        return NowPlayingRepository(mobiMovieApi)
     }
 
     @Singleton
@@ -34,7 +32,39 @@ object RepositoryModule {
     fun provideMovieDetailRepository(
         mobiMovieApi: MobiMovieApi,
     ): MovieDetailRepository {
-        return MovieDetailRepository( mobiMovieApi)
+        return MovieDetailRepository(mobiMovieApi)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRequestTokenRepository(
+        mobiMovieApi: MobiMovieApi,
+    ): RequestTokenRepository {
+        return RequestTokenRepository(mobiMovieApi)
+    }
+
+    @Singleton
+    @Provides
+    fun provideLoginRepository(
+        mobiMovieApi: MobiMovieApi,
+    ): LoginRepository {
+        return LoginRepository(mobiMovieApi)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAccountDetailRepository(
+        mobiMovieApi: MobiMovieApi,
+    ): AccountDetailRepository {
+        return AccountDetailRepository(mobiMovieApi)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCreateSessionIdRepository(
+        mobiMovieApi: MobiMovieApi,
+    ): CreateSessionIdRepository {
+        return CreateSessionIdRepository(mobiMovieApi)
     }
 }
 

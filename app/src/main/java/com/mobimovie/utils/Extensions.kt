@@ -22,3 +22,7 @@ fun ImageView.loadImageWithResize(url: String) {
         .into(this)
 }
 
+fun isEmpty(text: String): Boolean {
+   return text.isEmpty()
+}
+

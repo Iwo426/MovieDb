@@ -12,16 +12,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import com.mobimovie.utils.visible
 import com.mobimovie.adapter.SliderAdapter
 import com.mobimovie.adapter.UpcomingListAdapter
 import com.mobimovie.databinding.FragmentHomeBinding
 import com.mobimovie.model.NowPlayingModel
 import com.mobimovie.model.UpcomingModel
 import com.mobimovie.response.NowPlayingResponse
+import com.mobimovie.response.RequestTokenResponse
 import com.mobimovie.response.UpComingResponse
 import com.mobimovie.utils.DataState
+import com.mobimovie.utils.MobiMovieConstants.API_KEY
+import com.mobimovie.utils.visible
 import com.mobimovie.viewmodel.NowPlayingViewModel
+import com.mobimovie.viewmodel.RequestTokenViewModel
 import com.mobimovie.viewmodel.UpComingViewModel
 import com.smarteist.autoimageslider.SliderView
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +38,7 @@ class HomeFragment : Fragment(), UpcomingListAdapter.ItemInterface {
     private val binding get() = _binding
     private val viewModelNowPlaying: NowPlayingViewModel by viewModels()
     private val viewModelUpComing: UpComingViewModel by viewModels()
+    private val viewModelRequestToken : RequestTokenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

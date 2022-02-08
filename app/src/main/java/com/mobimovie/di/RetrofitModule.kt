@@ -1,4 +1,4 @@
-package com.iwo.marvelheroes.di
+package com.mobimovie.di
 
 import com.mobimovie.service.MobiMovieApi
 import dagger.Module
