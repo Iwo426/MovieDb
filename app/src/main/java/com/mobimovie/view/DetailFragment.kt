@@ -21,6 +21,8 @@ import com.mobimovie.response.CommonResponse
 import com.mobimovie.response.CreateSessionIdResponse
 import com.mobimovie.response.MovieDetailResponse
 import com.mobimovie.utils.DataState
+import com.mobimovie.utils.MobiMovieConstants.TYPE_FAV
+import com.mobimovie.utils.MobiMovieConstants.TYPE_WATCH
 import com.mobimovie.utils.loadImage
 import com.mobimovie.utils.showAlert
 import com.mobimovie.utils.visible
@@ -35,8 +37,11 @@ class DetailFragment : Fragment() {
     private lateinit var viewModelDetail: MovieDetailViewModel
     private val viewModelAddToFavorite: AddFavoriteViewModel by viewModels()
     private val viewModelAddWatchList: AddWatchListViewModel by viewModels()
+    private val accountModel: AccountDetailViewModel by activityViewModels()
+    private val sessionViewModel: SessionViewModel by activityViewModels()
     lateinit var binding: FragmentDetailBindingImpl
-
+    var sessionId = ""
+    private var userId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -49,7 +54,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
-        // Inflate the layout for this fragmen
+        // Inflate the layout for this fragment
         binding.callback = this
         return binding.root
     }
@@ -59,11 +64,11 @@ class DetailFragment : Fragment() {
         viewModelDetail = ViewModelProvider(this)[MovieDetailViewModel::class.java]
         initUiData()
         btnAddFavorite.setOnClickListener {
-            addToFavorite(AddToFavoriteRequest(true, movieId, "movie"))
+            getUserDetails(TYPE_FAV)
         }
 
         btnAddWatchList.setOnClickListener {
-            addToWatchlist(AddToWatchListRequest(true, movieId, "movie"))
+            getUserDetails(TYPE_WATCH)
         }
         binding.callback
     }
@@ -91,12 +96,13 @@ class DetailFragment : Fragment() {
     }
 
     private fun addToFavorite(request: AddToFavoriteRequest) {
-        viewModelAddToFavorite.addToFavorite(getUserId(), getSession(), request)
+        viewModelAddToFavorite.addToFavorite(userId, sessionId, request)
         viewModelAddToFavorite.data.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Success<CommonResponse> -> {
                     displayProgressBar(false)
                     showAlert(it.data.status_code, requireContext())
+                    viewModelAddToFavorite.data.removeObservers(viewLifecycleOwner)
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
@@ -110,12 +116,13 @@ class DetailFragment : Fragment() {
     }
 
     private fun addToWatchlist(request: AddToWatchListRequest) {
-        viewModelAddWatchList.addToWatchlist(getUserId(), getSession(), request)
+        viewModelAddWatchList.addToWatchlist(userId, sessionId, request)
         viewModelAddWatchList.data.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Success<CommonResponse> -> {
                     displayProgressBar(false)
                     showAlert(it.data.status_code, requireContext())
+                    viewModelAddWatchList.data.removeObservers(viewLifecycleOwner)
                 }
                 is DataState.Error -> {
                     displayProgressBar(false)
@@ -128,32 +135,36 @@ class DetailFragment : Fragment() {
 
     }
 
-    private fun getUserId(): Int {
-        var userId = 0
-        val accountModel: AccountDetailViewModel by activityViewModels()
-        accountModel.data.observe(viewLifecycleOwner, Observer {
-            when (it) {
+    private fun getUserDetails(type: Int) {
+        displayProgressBar(true)
+        accountModel.data.observe(viewLifecycleOwner, Observer { dt ->
+            when (dt) {
                 is DataState.Success<AccountDetailResponse> -> {
-                    userId = it.data.id
+                    userId = dt.data.id
+                    accountModel.data.removeObservers(viewLifecycleOwner)
+                    sessionViewModel.data.observe(viewLifecycleOwner, Observer {
+                        when (it) {
+                            is DataState.Success<CreateSessionIdResponse> -> {
+                                sessionId = it.data.session_id
+                                sessionViewModel.data.removeObservers(viewLifecycleOwner)
+                                displayProgressBar(false)
+                                if (type == TYPE_FAV) {
+                                    addToFavorite(AddToFavoriteRequest(true, movieId, "movie"))
+                                } else {
+                                    addToWatchlist(AddToWatchListRequest(true, movieId, "movie"))
+                                }
+                            }
+                            else -> {
+                                displayProgressBar(false)
+                            }
+                        }
+                    })
                 }
-                else -> {}
+                else -> {
+                    displayProgressBar(false)
+                }
             }
         })
-        return userId
-    }
-
-    private fun getSession(): String {
-        lateinit var sessionId: String
-        val sessionViewModel: SessionViewModel by activityViewModels()
-        sessionViewModel.data.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is DataState.Success<CreateSessionIdResponse> -> {
-                    sessionId = it.data.session_id
-                }
-                else -> {}
-            }
-        })
-        return sessionId
     }
 
     fun onImageClick(id: String) {

@@ -10,6 +10,9 @@
     <string name="success">İşlem Başarılı</string>
     <string name="fail">işlem Başarısız Lütfen Daha Sonra Tekrar Deneyin</string>
     <string name="anasayfa">Anasayfa</string>
-    <string name="watch_list">Watch List</string>
-    <string name="favorites">Favorites</string>
+    <string name="watch_list">İzleme Listesi</string>
+    <string name="favorites">Favoriler</string>
+    <string name="movieTitle">%1$s! %1$s</string>
+    <string name="Ara">Ara</string>
+    <string name="SearchHint">Başlamak İçin İkona Dokun</string>
 </resources>

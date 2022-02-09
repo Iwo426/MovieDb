@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
+    <fragment
+        android:id="@+id/fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/coordinator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/mobi_navigation" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
@@ -30,18 +43,5 @@
         </com.google.android.material.bottomappbar.BottomAppBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/coordinator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobi_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

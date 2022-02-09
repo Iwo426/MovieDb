@@ -37,6 +37,7 @@ class LoginFragment : Fragment() {
     private val viewModelSessionViewModel: SessionViewModel by activityViewModels()
     private val viewModelAccountDetailViewModel: AccountDetailViewModel by activityViewModels()
     private var token: String = ""
+    var navigationState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +57,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestToken()
+        navigationState= false
         binding?.btnlogin?.setOnClickListener {
             val userId = binding?.txtUserId?.text.toString()
             val pw = binding?.txtPw?.text.toString()
@@ -99,10 +101,11 @@ class LoginFragment : Fragment() {
                 when (it) {
                     is DataState.Success<RequestTokenResponse> -> {
                         displayProgressBar(false)
-                        getSessionId(SessionRequest(it.data.request_token))
+                            getSessionId(SessionRequest(it.data.request_token))
                     }
                     is DataState.Error -> {
                         displayProgressBar(false)
+                        Toast.makeText(context,"Kullanıcı/Şifre Bilgilerinizi Kontrol Ediniz",Toast.LENGTH_SHORT).show()
                     }
                     is DataState.Loading -> {
                         displayProgressBar(true)
@@ -143,7 +146,11 @@ class LoginFragment : Fragment() {
                 when (it) {
                     is DataState.Success<AccountDetailResponse> -> {
                         displayProgressBar(false)
-                        navigateToHome()
+                        if (!navigationState){
+                            navigateToHome()
+                            navigationState= true
+                        }
+
                     }
                     is DataState.Error -> {
                         displayProgressBar(false)

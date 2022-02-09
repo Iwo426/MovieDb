@@ -34,22 +34,18 @@ fun isEmpty(text: String): Boolean {
 }
 
 fun showAlert(status :Int,context : Context){
-
     val dialog  =  Dialog(context)
     dialog.setContentView(R.layout.pop_up_layout)
     val btnConfirm: Button = dialog.findViewById<View>(R.id.btnConfirm) as Button
     val img: ImageView = dialog.findViewById<View>(R.id.statusImage) as ImageView
     val txt: TextView = dialog.findViewById<View>(R.id.statusText) as TextView
-
     if (status == addStatus){
         img.setImageResource(R.drawable.thumbs)
         txt.text = context.getString(R.string.success)
     }else {
         img.setImageResource(R.drawable.sad)
         txt.text = context.getString(R.string.fail)
-
     }
-
     btnConfirm.setOnClickListener {
         dialog.dismiss()
     }

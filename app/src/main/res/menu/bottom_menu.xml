@@ -2,10 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/homeFragment"
         android:title="@string/anasayfa"
-        android:icon="@drawable/heart"/>
+        android:icon="@drawable/home"/>
+    <item android:id="@+id/searchFragment"
+        android:title="@string/Ara"
+        android:icon="@drawable/search"/>
     <item android:id="@+id/watchListFragment"
         android:title="@string/watch_list"
-        android:icon="@drawable/addtoslit"/>
+        android:icon="@drawable/list"/>
     <item android:id="@+id/favoritesListFragment"
         android:title="@string/favorites"
         android:icon="@drawable/heart"/>
