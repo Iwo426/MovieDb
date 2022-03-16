@@ -131,6 +131,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/heart"
+                    android:onClick="@{() -> callback.getUserDetails(1)}"
                     app:layout_constraintBottom_toBottomOf="@+id/imgDetail"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -140,6 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:onClick="@{() -> callback.getUserDetails(0)}"
                     android:background="@drawable/addtoslit"
                     app:layout_constraintBottom_toBottomOf="@+id/btnAddFavorite"
                     app:layout_constraintEnd_toStartOf="@+id/btnAddFavorite"

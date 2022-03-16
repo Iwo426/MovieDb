@@ -9,31 +9,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.mobimovie.adapter.MovieListAdapter
-import com.mobimovie.adapter.SliderAdapter
-import com.mobimovie.adapter.UpcomingListAdapter
-import com.mobimovie.databinding.FragmentHomeBinding
 import com.mobimovie.databinding.MovieListFragmentBinding
-import com.mobimovie.model.NowPlayingModel
-import com.mobimovie.model.UpcomingModel
 import com.mobimovie.response.*
 import com.mobimovie.utils.DataState
-import com.mobimovie.utils.MobiMovieConstants.API_KEY
-import com.mobimovie.utils.visible
 import com.mobimovie.viewmodel.*
-import com.smarteist.autoimageslider.SliderView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.sql.Timestamp
-import kotlin.math.abs
 
 
 @AndroidEntryPoint

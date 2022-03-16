@@ -34,7 +34,6 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        tools:layout="@layout/fragment_login"
         android:name="com.mobimovie.view.LoginFragment"
         android:label="LoginFragment" >
         <action

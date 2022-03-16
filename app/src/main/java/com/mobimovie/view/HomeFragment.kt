@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,10 +18,8 @@ import com.mobimovie.databinding.FragmentHomeBinding
 import com.mobimovie.model.NowPlayingModel
 import com.mobimovie.model.UpcomingModel
 import com.mobimovie.response.NowPlayingResponse
-import com.mobimovie.response.RequestTokenResponse
 import com.mobimovie.response.UpComingResponse
 import com.mobimovie.utils.DataState
-import com.mobimovie.utils.MobiMovieConstants.API_KEY
 import com.mobimovie.utils.visible
 import com.mobimovie.viewmodel.NowPlayingViewModel
 import com.mobimovie.viewmodel.RequestTokenViewModel
@@ -136,7 +133,7 @@ class HomeFragment : Fragment(), UpcomingListAdapter.ItemInterface {
     }
 
     private fun setUpcomingData(results: List<UpcomingModel>) {
-        val adapter = UpcomingListAdapter(arrayListOf(), requireContext())
+        val adapter = UpcomingListAdapter(arrayListOf())
         adapter.interfaceListener(this)
         adapter.updateList(results)
         binding?.rvMovies?.layoutManager = LinearLayoutManager(context)
@@ -161,4 +158,5 @@ class HomeFragment : Fragment(), UpcomingListAdapter.ItemInterface {
     private fun displayProgressBar(isDisplayed: Boolean) {
         binding?.progressBar?.visible(isDisplayed)
     }
+
 }

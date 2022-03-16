@@ -1,29 +1,25 @@
 package com.mobimovie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mobimovie.R
-import com.mobimovie.utils.loadImageWithResize
+import com.mobimovie.databinding.ItemMovieListBinding
 import com.mobimovie.model.UpcomingModel
-import kotlinx.android.synthetic.main.item_movie_list.view.*
+import com.mobimovie.utils.loadImageWithResize
 
-class UpcomingListAdapter(private val listAll: ArrayList<UpcomingModel>, val context: Context) :
+class UpcomingListAdapter(private val listAll: ArrayList<UpcomingModel>) :
     RecyclerView.Adapter<UpcomingListAdapter.ListItemHolder>() {
 
     private var listener: ItemInterface? = null
 
-    class ListItemHolder(var view: View) : RecyclerView.ViewHolder(view) {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemHolder {
+        val binding = ItemMovieListBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return ListItemHolder(binding)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_movie_list, parent, false)
-        return ListItemHolder(view)
-
+    inner class ListItemHolder(val binding: ItemMovieListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
     }
 
     override fun getItemCount(): Int {
@@ -32,17 +28,20 @@ class UpcomingListAdapter(private val listAll: ArrayList<UpcomingModel>, val con
 
     override fun onBindViewHolder(holder: ListItemHolder, position: Int) {
 
-        holder.view.txtTitle.text = listAll[position].title
-        holder.view.txtDescription.text = listAll[position].overview
-        holder.view.txtDate.text = listAll[position].release_date
-        holder.view.poster.loadImageWithResize("https://image.tmdb.org/t/p/w500/" + listAll[position].poster_path)
+        with(holder) {
+            with(listAll[position]) {
+                binding.txtTitle.text = title
+                binding.txtDescription.text = overview
+                binding.txtDate.text = release_date
+                binding.poster.loadImageWithResize("https://image.tmdb.org/t/p/w500/$poster_path")
 
-        holder.view.setOnClickListener {
-            listAll[position].id.let {
-                listener?.sendData(listAll[position].id)
+                itemView.setOnClickListener {
+                    listAll[position].id.let {
+                        listener?.sendData(listAll[position].id)
+                    }
+                }
             }
         }
-
     }
 
     fun updateList(allList: List<UpcomingModel>) {

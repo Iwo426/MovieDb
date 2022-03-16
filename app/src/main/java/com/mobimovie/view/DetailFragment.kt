@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mobimovie.R
-import com.mobimovie.databinding.FragmentDetailBindingImpl
+import com.mobimovie.databinding.FragmentDetailBinding
 import com.mobimovie.request.AddToFavoriteRequest
 import com.mobimovie.request.AddToWatchListRequest
 import com.mobimovie.response.AccountDetailResponse
@@ -28,7 +28,6 @@ import com.mobimovie.utils.showAlert
 import com.mobimovie.utils.visible
 import com.mobimovie.viewmodel.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_detail.*
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -39,7 +38,7 @@ class DetailFragment : Fragment() {
     private val viewModelAddWatchList: AddWatchListViewModel by viewModels()
     private val accountModel: AccountDetailViewModel by activityViewModels()
     private val sessionViewModel: SessionViewModel by activityViewModels()
-    lateinit var binding: FragmentDetailBindingImpl
+    lateinit var binding: FragmentDetailBinding
     var sessionId = ""
     private var userId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,13 +62,6 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModelDetail = ViewModelProvider(this)[MovieDetailViewModel::class.java]
         initUiData()
-        btnAddFavorite.setOnClickListener {
-            getUserDetails(TYPE_FAV)
-        }
-
-        btnAddWatchList.setOnClickListener {
-            getUserDetails(TYPE_WATCH)
-        }
         binding.callback
     }
 
@@ -82,7 +74,7 @@ class DetailFragment : Fragment() {
                     is DataState.Success<MovieDetailResponse> -> {
                         displayProgressBar(false)
                         binding.data = it.data
-                        imgDetail.loadImage("https://image.tmdb.org/t/p/w500/" + it.data.backdrop_path)
+                        binding.imgDetail.loadImage("https://image.tmdb.org/t/p/w500/" + it.data.backdrop_path)
                     }
                     is DataState.Error -> {
                         displayProgressBar(false)
@@ -135,7 +127,7 @@ class DetailFragment : Fragment() {
 
     }
 
-    private fun getUserDetails(type: Int) {
+     fun getUserDetails(type: Int) {
         displayProgressBar(true)
         accountModel.data.observe(viewLifecycleOwner, Observer { dt ->
             when (dt) {
@@ -173,6 +165,6 @@ class DetailFragment : Fragment() {
     }
 
     private fun displayProgressBar(isDisplayed: Boolean) {
-        progressDetail?.visible(isDisplayed)
+        binding.progressDetail.visible(isDisplayed)
     }
 }
