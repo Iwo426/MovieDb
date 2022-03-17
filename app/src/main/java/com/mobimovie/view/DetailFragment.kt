@@ -1,5 +1,6 @@
 package com.mobimovie.view
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -61,6 +62,11 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModelDetail = ViewModelProvider(this)[MovieDetailViewModel::class.java]
+        val pref = activity?.getSharedPreferences(
+            "login", Context.MODE_PRIVATE
+        )
+         sessionId = pref?.getString("sessionId", "0").toString()
+         userId = pref?.getInt("id", 0)!!
         initUiData()
         binding.callback
     }
@@ -128,35 +134,11 @@ class DetailFragment : Fragment() {
     }
 
      fun getUserDetails(type: Int) {
-        displayProgressBar(true)
-        accountModel.data.observe(viewLifecycleOwner, Observer { dt ->
-            when (dt) {
-                is DataState.Success<AccountDetailResponse> -> {
-                    userId = dt.data.id
-                    accountModel.data.removeObservers(viewLifecycleOwner)
-                    sessionViewModel.data.observe(viewLifecycleOwner, Observer {
-                        when (it) {
-                            is DataState.Success<CreateSessionIdResponse> -> {
-                                sessionId = it.data.session_id
-                                sessionViewModel.data.removeObservers(viewLifecycleOwner)
-                                displayProgressBar(false)
-                                if (type == TYPE_FAV) {
-                                    addToFavorite(AddToFavoriteRequest(true, movieId, "movie"))
-                                } else {
-                                    addToWatchlist(AddToWatchListRequest(true, movieId, "movie"))
-                                }
-                            }
-                            else -> {
-                                displayProgressBar(false)
-                            }
-                        }
-                    })
-                }
-                else -> {
-                    displayProgressBar(false)
-                }
-            }
-        })
+         if (type == TYPE_FAV) {
+             addToFavorite(AddToFavoriteRequest(true, movieId, "movie"))
+         } else {
+             addToWatchlist(AddToWatchListRequest(true, movieId, "movie"))
+         }
     }
 
     fun onImageClick(id: String) {
