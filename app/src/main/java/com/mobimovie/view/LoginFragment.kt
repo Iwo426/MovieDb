@@ -1,5 +1,6 @@
 package com.mobimovie.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -148,6 +149,13 @@ class LoginFragment : Fragment() {
                             API_KEY,
                             it.data.session_id
                         )
+                        val sharedPref =
+                            activity?.getSharedPreferences("login", Context.MODE_PRIVATE)
+                                ?: return@Observer
+                        with(sharedPref.edit()) {
+                            putString("sessionId", it.data.session_id.replace("[\"]".toRegex(), ""))
+                            apply()
+                        }
                         getDetail()
                     }
                     is DataState.Error -> {
@@ -170,6 +178,13 @@ class LoginFragment : Fragment() {
                         if (!navigationState) {
                             navigateToHome()
                             navigationState = true
+                            val sharedPref =
+                                activity?.getSharedPreferences("login", Context.MODE_PRIVATE)
+                                    ?: return@Observer
+                            with(sharedPref.edit()) {
+                                putInt("id", it.data.id)
+                                apply()
+                            }
                         }
 
                     }

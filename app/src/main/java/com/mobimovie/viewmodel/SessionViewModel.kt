@@ -24,6 +24,9 @@ class SessionViewModel @Inject constructor(
     private val _data = MutableLiveData<DataState<CreateSessionIdResponse>>()
     val data: LiveData<DataState<CreateSessionIdResponse>> = _data
 
+    private val _sessionId = MutableLiveData<String>()
+    val sessionId : LiveData<String> = _sessionId
+
     fun getSessionId(key:String,request :SessionRequest) {
         viewModelScope.launch {
             createSessionIdRepository.getSessionId(key,request)
